@@ -4,11 +4,11 @@
 
 ## Hi, I'm Tianyi 👋
 
-Engineer **+** researcher working on **trustworthy AI** — evaluation, robustness, and the infrastructure underneath.
+Engineer **+** researcher focused on **solving real-world AI system problems** — moving across **product**, **engineering**, and **open-ended research**.
 
 - 🌐 &nbsp;**[tianyi-zhang-02.github.io](https://tianyi-zhang-02.github.io)** — projects & publications
 - 🔭 &nbsp;ML engineer intern @ **LinkedIn** Feed AI · MS CS @ **Georgia Tech**
-- 🦅 &nbsp;**Emory** — *Go Eagles!* &nbsp;·&nbsp; 🐝 **Georgia Tech** — *Go Jackets!*
+- 🦅 &nbsp;**Emory ’25** — *Go Eagles!* &nbsp;·&nbsp; 🐝 **Georgia Tech ’26** — *Go Jackets!*
 - 📫 &nbsp;[zhangtianyi975@gmail.com](mailto:zhangtianyi975@gmail.com) · [LinkedIn](https://www.linkedin.com/in/tianyi-zhang2002/) · [Scholar](https://scholar.google.com/citations?hl=en&view_op=list_works&user=46rbYk0AAAAJ)
 
-<sub>Trustworthy AI · Evaluation & robustness · AI infra & LLM serving · Efficient deep learning</sub>
+<sub>AI infra & LLM serving · Efficient deep learning · AI safety · Evaluation & robustness</sub>
