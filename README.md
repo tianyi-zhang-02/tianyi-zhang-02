@@ -10,5 +10,3 @@ Engineer **+** researcher focused on **solving real-world AI system problems** �
 - 🔭 &nbsp;ML engineer intern @ **LinkedIn** Feed AI · MS CS @ **Georgia Tech**
 - 🦅 &nbsp;**Emory ’25** — *Go Eagles!* &nbsp;·&nbsp; 🐝 **Georgia Tech ’26** — *Go Jackets!*
 - 📫 &nbsp;[zhangtianyi975@gmail.com](mailto:zhangtianyi975@gmail.com) · [LinkedIn](https://www.linkedin.com/in/tianyi-zhang2002/) · [Scholar](https://scholar.google.com/citations?hl=en&view_op=list_works&user=46rbYk0AAAAJ)
-
-<sub>AI infra & LLM serving · Efficient deep learning · AI safety · Evaluation & robustness</sub>
