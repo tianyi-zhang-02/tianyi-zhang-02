@@ -1,12 +1,27 @@
-# Tianyi Zhang
+<p align="center">
+  <img src="./profile-card.svg" alt="Tianyi Zhang — Reliable AI systems" width="100%">
+</p>
 
-Machine learning engineer and researcher working on **reliable AI systems** — from representation and retrieval to agent evaluation and LLM post-training.
+<p align="center">
+  Machine learning engineer and researcher building reliable AI systems across product, infrastructure, and evaluation.
+</p>
 
-Currently an **ML Engineer Intern at LinkedIn Feed AI** and pursuing an **M.S. in Computer Science at Georgia Tech**.
+<p align="center">
+  <strong>LinkedIn Feed AI</strong> · ML Engineer Intern &nbsp;&nbsp;|&nbsp;&nbsp;
+  <strong>Georgia Tech</strong> · M.S. Computer Science
+</p>
 
-![Reliable AI](https://img.shields.io/badge/Reliable_AI-24292f?style=flat-square)
-![ML Systems](https://img.shields.io/badge/ML_Systems-24292f?style=flat-square)
-![Agent Evaluation](https://img.shields.io/badge/Agent_Evaluation-24292f?style=flat-square)
-![LLM Post-training](https://img.shields.io/badge/LLM_Post--training-24292f?style=flat-square)
+<table>
+  <tr>
+    <td width="33%" align="center"><strong>Systems</strong><br><sub>Representation · Retrieval · Distributed ML</sub></td>
+    <td width="33%" align="center"><strong>Research</strong><br><sub>Agent Evaluation · Benchmark Integrity</sub></td>
+    <td width="33%" align="center"><strong>Open Source</strong><br><sub>LLM Post-training · NVIDIA NeMo RL</sub></td>
+  </tr>
+</table>
 
-[Website](https://tianyi-zhang-02.github.io) · [LinkedIn](https://www.linkedin.com/in/tianyi-zhang2002/) · [Google Scholar](https://scholar.google.com/citations?user=46rbYk0AAAAJ) · [Email](mailto:zhangtianyi975@gmail.com)
+<p align="center">
+  <a href="https://tianyi-zhang-02.github.io">Website</a> ·
+  <a href="https://www.linkedin.com/in/tianyi-zhang2002/">LinkedIn</a> ·
+  <a href="https://scholar.google.com/citations?user=46rbYk0AAAAJ">Google Scholar</a> ·
+  <a href="mailto:zhangtianyi975@gmail.com">Email</a>
+</p>
