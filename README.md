@@ -5,10 +5,6 @@
 </p>
 
 <p align="center">
-  📷 Photography &nbsp;·&nbsp; 🥾 Outdoors &nbsp;·&nbsp; 🐾 Animals &nbsp;·&nbsp; 🌍 Travel &nbsp;·&nbsp; 🎸 Guitar
-</p>
-
-<p align="center">
   <a href="https://tianyi-zhang-02.github.io">Website</a> ·
   <a href="https://www.linkedin.com/in/tianyi-zhang2002/">LinkedIn</a> ·
   <a href="https://scholar.google.com/citations?user=46rbYk0AAAAJ">Google Scholar</a> ·
