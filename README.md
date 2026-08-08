@@ -1,11 +1,11 @@
 <h1 align="center">Tianyi Zhang</h1>
 
 <p align="center">
-  I design multimodal learning and post-training methods from sparse, imperfect human feedback.
+  I work upstream on machine-learning research, designing model architectures and learning objectives from sparse, imperfect human feedback.
 </p>
 
 <p align="center">
-  Model architecture · Learning objectives · Behavioral evaluation
+  Evaluation, data, and systems are how I test those ideas under real-world constraints.
 </p>
 
 <p align="center">
