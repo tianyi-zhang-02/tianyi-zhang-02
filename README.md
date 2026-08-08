@@ -1,11 +1,11 @@
 <h1 align="center">Tianyi Zhang</h1>
 
 <p align="center">
-  I work upstream on machine-learning research, designing model architectures and learning objectives from sparse, imperfect human feedback.
+  Interested in multimodal learning, post-training, model architecture, and behavioral evaluation — especially learning from sparse, imperfect human feedback.
 </p>
 
 <p align="center">
-  Evaluation, data, and systems are how I test those ideas under real-world constraints.
+  Shanghai · Atlanta · Bay Area
 </p>
 
 <p align="center">
