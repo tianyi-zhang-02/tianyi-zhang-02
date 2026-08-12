@@ -33,22 +33,30 @@ measures something other than what it claims, a correlation standing in for a ca
 a metric quietly drifting from the thing it was supposed to stand for. The part I
 enjoy is finding the one measurement that tells those apart.
 
-## What I want to build
+## What I'm into
 
-Systems increasingly run without a human at every step, so oversight has to move from
-human attention to **instrumented monitorability** — if you can't watch it, it has to
-report on itself.
+LLMs, and most of what sits downstream of them — **conversational** systems,
+**search** and retrieval, and making both genuinely **personalized**. Two directions
+I keep coming back to:
 
-The constraint I find interesting: attention is rationed, not removed. Whoever is
-watching can only afford a handful of escalations, so a monitor is only worth anything
-at a **low false-positive rate**. Average-case accuracy is the easy part; being right
-when you interrupt someone is the real one.
+- ⚡ **Faster** — inference acceleration. Latency isn't a detail, it's the product.
+- 🧠 **Smarter** — reasoning and memory. Thinking longer, and remembering what happened.
 
-## What I'm working on
+## How I like to work
 
-- **[NVIDIA NeMo-RL](https://github.com/NVIDIA-NeMo/RL)** — upstream contributions to the LLM post-training stack: dataset and checkpoint correctness, plus a tensor-parallel rewrite of top-k distillation that drops the dominant intermediate from `O(TV)` to `O(TK)`. &nbsp;[Merged commits →](https://github.com/NVIDIA-NeMo/RL/commits/main/?author=tianyi-zhang-02)
+**Start from the problem.** Find one worth solving, then go get the method — not a
+method wandering around looking for somewhere to land.
+
+**Sufficient is better.** Not *more is better*, not *less is better* — ***enough*** is
+better. The right amount of context, of retrieval, of thinking, of alerting. A monitor
+that fires constantly is as useless as one that never fires; a model that reasons for a
+page on a one-line question hasn't gotten smarter. Most of the interesting work is
+finding where that line sits. 讲究一个度 :)
+
+## What I'm building
+
+- **[NVIDIA NeMo-RL](https://github.com/NVIDIA-NeMo/RL)** — upstream contributions to the LLM post-training stack: dataset and checkpoint correctness, plus a tensor-parallel rewrite of top-k distillation that drops the dominant intermediate from `O(TV)` to `O(TK)`. &nbsp;[Merged commits →](https://github.com/NVIDIA-NeMo/RL/commits/main/?author=tianyi-zhang-02)<br><sub>Yes, there is RLHF in here. No, not that one — ***R**eally **L**onging for **H**otpots and **F**ries* 🍲🍟</sub>
 - **[cooking-agi](https://github.com/tianyi-zhang-02/cooking-agi)** — 「AGI 大锅烩」, bilingual notes on models, data, memory, search, feedback, and evaluation. Learning by having to write it down clearly. &nbsp;[Read →](https://tianyi-zhang-02.github.io/cooking-agi/)
-- **[accretia](https://github.com/tianyi-zhang-02/accretia)** — a mobile-first PWA I actually use day to day, built with a hostile-reader threat model.
 
 ## Off the clock
 
