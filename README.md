@@ -51,7 +51,7 @@ method wandering around looking for somewhere to land.
 better. The right amount of context, of retrieval, of thinking, of alerting. A monitor
 that fires constantly is as useless as one that never fires; a model that reasons for a
 page on a one-line question hasn't gotten smarter. Most of the interesting work is
-finding where that line sits. 讲究一个度 :)
+finding where that line sits. :)
 
 ## What I'm building
 
