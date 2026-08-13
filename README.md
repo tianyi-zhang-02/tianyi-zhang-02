@@ -22,27 +22,10 @@
 
 ---
 
-## 🔬 Some ongoing research
-
-LLMs and everything downstream of them — conversational, search, and making it
-actually *personal*. Two knobs I keep turning:
-
-**⚡ Faster** — inference acceleration. &nbsp;·&nbsp; **🧠 Smarter** — reasoning and memory.
-
-## 🎚️ One opinion I'll defend
-
-Not *more is better*. Not *less is better*. **Enough is better.**
-
-A monitor that cries wolf is as useless as one that sleeps through the wolf. A model
-that writes three paragraphs to answer "hi" did not get smarter. :)
-
 ## 🍲 Currently cooking
 
 - **[NVIDIA NeMo-RL](https://github.com/NVIDIA-NeMo/RL)** — upstream post-training work. &nbsp;[Commits →](https://github.com/NVIDIA-NeMo/RL/commits/main/?author=tianyi-zhang-02)<br><sub>Yes, there's RLHF in here. No, not that one — ***R**eally **L**onging for **H**otpots and **F**ries* 🍲🍟</sub>
 - **[cooking-agi](https://github.com/tianyi-zhang-02/cooking-agi)** — 「AGI 大锅烩」, bilingual notes on how this stuff actually works. Learning out loud. &nbsp;[Read →](https://tianyi-zhang-02.github.io/cooking-agi/)
 
-## 🐕‍🦺 Off the clock
-
-Big mountains, a camera, and 我是真的想养德牧 😭
 
 <sub>Banner from <a href="assets/make_banner.py"><code>make_banner.py</code></a> — noise decaying into signal, no hand-drawing involved.</sub>
