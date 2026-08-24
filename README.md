@@ -14,7 +14,6 @@
 
 <p align="center">
   <a href="https://tianyi-zhang-02.github.io">Website</a> ·
-  <a href="https://tianyi-zhang-02.github.io/cooking-agi/">AGI 大锅烩</a> ·
   <a href="https://scholar.google.com/citations?user=46rbYk0AAAAJ">Scholar</a> ·
   <a href="https://www.linkedin.com/in/tianyi-zhang2002/">LinkedIn</a> ·
   <a href="mailto:zhangtianyi975@gmail.com">Email</a>
