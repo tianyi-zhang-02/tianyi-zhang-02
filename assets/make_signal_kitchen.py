@@ -14,7 +14,7 @@ import urllib.request
 
 
 WIDTH = 1200
-HEIGHT = 300
+HEIGHT = 330
 
 THEMES = {
     "light": {
@@ -128,7 +128,7 @@ def esc(text: str) -> str:
 
 
 def calendar_dots(weeks: list[list[dict]], colors: list[str]) -> str:
-    start_x, start_y = 42, 76
+    start_x, start_y = 42, 94
     step_x, step_y = 8.1, 20
     dots = []
     for week_index, week in enumerate(weeks):
@@ -166,26 +166,42 @@ def signal_path(weeks: list[list[dict]]) -> tuple[str, tuple[float, float]]:
     sampled = totals[-28:]
     points = []
     for index, count in enumerate(sampled):
-        x = 756 + index * (400 / max(len(sampled) - 1, 1))
+        x = 770 + index * (386 / max(len(sampled) - 1, 1))
         normalized = math.sqrt(count / peak)
-        y = 174 - normalized * 92
+        y = 205 - normalized * 102
         points.append((x, y))
     return smooth_path(points), points[-1]
 
 
-def moving_ingredients(colors: list[str]) -> str:
-    paths = [
-        ("M 420 92 C 485 92, 510 126, 565 145", 0.0, 6.2, colors[4]),
-        ("M 390 132 C 478 135, 515 146, 565 151", 1.4, 7.1, colors[3]),
-        ("M 430 184 C 485 180, 525 168, 568 158", 2.8, 6.7, colors[2]),
-        ("M 365 214 C 470 218, 526 190, 574 165", 4.1, 7.8, colors[4]),
+def moving_ingredients(colors: dict) -> str:
+    tokens = [
+        ("DATA", "M 395 100 C 480 86, 520 125, 574 164", 0.0, colors["grid"][4]),
+        ("CODE", "M 365 145 C 462 130, 530 148, 578 174", 1.7, colors["grid"][3]),
+        ("EVAL", "M 405 202 C 485 205, 530 194, 582 183", 3.4, colors["grid"][4]),
+        ("IDEA", "M 350 244 C 470 257, 535 224, 586 192", 5.1, colors["grid"][2]),
     ]
     out = []
-    for path, delay, duration, color in paths:
+    for label, path, delay, color in tokens:
         out.append(
-            f'''<circle r="3.4" fill="{color}" opacity="0">
-      <animate attributeName="opacity" values="0;1;1;0" dur="{duration}s" begin="{delay}s" repeatCount="indefinite"/>
-      <animateMotion path="{path}" dur="{duration}s" begin="{delay}s" repeatCount="indefinite"/>
+            f'''<g opacity="0">
+      <rect x="-22" y="-10" width="44" height="20" rx="10" fill="{colors['faint']}" stroke="{color}" stroke-width="1.4"/>
+      <text x="0" y="3.5" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="8" font-weight="700" letter-spacing="1" fill="{colors['ink']}">{label}</text>
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.82;1" dur="8s" begin="{delay}s" repeatCount="indefinite"/>
+      <animateMotion path="{path}" dur="8s" begin="{delay}s" repeatCount="indefinite" keyTimes="0;.78;1" keyPoints="0;1;1" calcMode="spline" keySplines=".3 .7 .3 1;0 0 1 1"/>
+    </g>'''
+        )
+
+    particle_paths = [
+        ("M 420 86 C 492 88, 538 135, 584 171", 0.6, colors["grid"][4], 5.0),
+        ("M 390 122 C 480 118, 536 150, 586 177", 2.1, colors["grid"][2], 4.4),
+        ("M 420 176 C 495 177, 548 179, 590 183", 3.7, colors["grid"][3], 5.8),
+        ("M 382 228 C 480 241, 548 207, 590 190", 5.3, colors["grid"][4], 4.8),
+    ]
+    for path, delay, color, radius in particle_paths:
+        out.append(
+            f'''<circle r="{radius}" fill="{color}" opacity="0" filter="url(#soft-glow)">
+      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.84;1" dur="6.4s" begin="{delay}s" repeatCount="indefinite"/>
+      <animateMotion path="{path}" dur="6.4s" begin="{delay}s" repeatCount="indefinite"/>
     </circle>'''
         )
     return "\n    ".join(out)
@@ -195,7 +211,7 @@ def build(theme: str, username: str, weeks: list[list[dict]], total: int) -> str
     colors = THEMES[theme]
     dots = calendar_dots(weeks, colors["grid"])
     signal, endpoint = signal_path(weeks)
-    ingredients = moving_ingredients(colors["grid"])
+    ingredients = moving_ingredients(colors)
     today = dt.date.today().isoformat()
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {WIDTH} {HEIGHT}" width="{WIDTH}" height="{HEIGHT}" role="img" aria-labelledby="title desc">
@@ -215,55 +231,86 @@ def build(theme: str, username: str, weeks: list[list[dict]], total: int) -> str
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <style>
-      .signal {{ stroke-dasharray: 760; stroke-dashoffset: 760; animation: draw 5.8s ease-in-out infinite; }}
-      .stir {{ transform-box: fill-box; transform-origin: 50% 88%; animation: stir 2.6s ease-in-out infinite alternate; }}
-      .steam-a {{ animation: steam 3.8s ease-in-out infinite; }}
-      .steam-b {{ animation: steam 3.8s 1.6s ease-in-out infinite; }}
-      .flame {{ transform-box: fill-box; transform-origin: center bottom; animation: flame 1.1s ease-in-out infinite alternate; }}
+      .ingredients-grid {{ animation: breathe 3.2s ease-in-out infinite; }}
+      .signal {{ stroke-dasharray: 760; stroke-dashoffset: 760; animation: draw 9s ease-in-out infinite; }}
+      .pot-character {{ transform-box: fill-box; transform-origin: center bottom; animation: cook 9s ease-in-out infinite; }}
+      .stir {{ transform-box: fill-box; transform-origin: 52% 88%; animation: stir .72s ease-in-out infinite alternate; }}
+      .steam-a {{ animation: steam 2.5s ease-in-out infinite; }}
+      .steam-b {{ animation: steam 2.5s 1.15s ease-in-out infinite; }}
+      .flame {{ transform-box: fill-box; transform-origin: center bottom; animation: flame .48s ease-in-out infinite alternate; }}
+      .eye {{ transform-box: fill-box; transform-origin: center; animation: blink 4.2s ease-in-out infinite; }}
+      .bubble-a {{ animation: bubble 2.1s ease-in infinite; }}
+      .bubble-b {{ animation: bubble 2.1s .7s ease-in infinite; }}
+      .bubble-c {{ animation: bubble 2.1s 1.35s ease-in infinite; }}
+      .speech {{ transform-box: fill-box; transform-origin: left bottom; animation: speech 9s ease-in-out infinite; }}
+      .burst {{ transform-box: fill-box; transform-origin: center; animation: burst 9s ease-out infinite; }}
       .pulse {{ animation: pulse 2.1s ease-in-out infinite; }}
-      @keyframes draw {{ 0%, 12% {{ stroke-dashoffset: 760; opacity: .24; }} 58%, 88% {{ stroke-dashoffset: 0; opacity: 1; }} 100% {{ stroke-dashoffset: 0; opacity: .24; }} }}
-      @keyframes stir {{ from {{ transform: rotate(-7deg); }} to {{ transform: rotate(8deg); }} }}
-      @keyframes steam {{ 0% {{ transform: translateY(8px); opacity: 0; }} 35% {{ opacity: .65; }} 100% {{ transform: translateY(-20px); opacity: 0; }} }}
-      @keyframes flame {{ from {{ transform: scale(.86, .88); opacity: .68; }} to {{ transform: scale(1.05, 1.08); opacity: 1; }} }}
+      @keyframes breathe {{ 0%, 100% {{ opacity: .58; }} 50% {{ opacity: 1; }} }}
+      @keyframes draw {{ 0%, 43% {{ stroke-dashoffset: 760; opacity: .15; }} 77%, 94% {{ stroke-dashoffset: 0; opacity: 1; }} 100% {{ stroke-dashoffset: 0; opacity: .15; }} }}
+      @keyframes cook {{ 0%, 31%, 58%, 100% {{ transform: translateY(0) rotate(0); }} 36% {{ transform: translateY(-8px) rotate(-3deg); }} 40% {{ transform: translateY(1px) rotate(4deg); }} 44% {{ transform: translateY(-6px) rotate(-4deg); }} 48% {{ transform: translateY(0) rotate(3deg); }} 53% {{ transform: translateY(-3px) rotate(-1deg); }} }}
+      @keyframes stir {{ from {{ transform: rotate(-13deg); }} to {{ transform: rotate(14deg); }} }}
+      @keyframes steam {{ 0% {{ transform: translateY(10px) scale(.75); opacity: 0; }} 35% {{ opacity: .8; }} 100% {{ transform: translateY(-30px) scale(1.12); opacity: 0; }} }}
+      @keyframes flame {{ from {{ transform: scale(.78, .78); opacity: .55; }} to {{ transform: scale(1.14, 1.18); opacity: 1; }} }}
+      @keyframes blink {{ 0%, 43%, 47%, 100% {{ transform: scaleY(1); }} 45% {{ transform: scaleY(.08); }} }}
+      @keyframes bubble {{ 0% {{ transform: translateY(12px) scale(.35); opacity: 0; }} 30% {{ opacity: 1; }} 100% {{ transform: translateY(-42px) scale(1.18); opacity: 0; }} }}
+      @keyframes speech {{ 0%, 30%, 64%, 100% {{ transform: scale(.7) translateY(8px); opacity: 0; }} 37%, 57% {{ transform: scale(1) translateY(0); opacity: 1; }} }}
+      @keyframes burst {{ 0%, 76%, 88%, 100% {{ transform: scale(.25); opacity: 0; }} 81% {{ transform: scale(1.35); opacity: 1; }} }}
       @keyframes pulse {{ 0%, 100% {{ opacity: .34; }} 50% {{ opacity: 1; }} }}
       @media (prefers-reduced-motion: reduce) {{ * {{ animation: none !important; }} .signal {{ stroke-dashoffset: 0; }} }}
     </style>
   </defs>
 
   <g aria-label="Contribution ingredients">
-    {dots}
+    <g class="ingredients-grid">{dots}</g>
     {ingredients}
   </g>
 
   <g aria-label="AGI cooking pot">
-    <ellipse class="flame" cx="620" cy="224" rx="31" ry="8" fill="{colors['heat']}" opacity=".78" filter="url(#soft-glow)"/>
-    <path class="stir" d="M 612 67 L 629 165" fill="none" stroke="{colors['pot_edge']}" stroke-width="6" stroke-linecap="round"/>
-    <path class="steam-a" d="M 600 119 C 586 101, 610 91, 598 70" fill="none" stroke="{colors['steam']}" stroke-width="3" stroke-linecap="round" opacity="0"/>
-    <path class="steam-b" d="M 638 118 C 651 100, 630 89, 643 67" fill="none" stroke="{colors['steam']}" stroke-width="3" stroke-linecap="round" opacity="0"/>
-    <path d="M 573 151 Q 620 137 667 151 L 657 207 Q 620 228 583 207 Z" fill="url(#pot-sheen)"/>
-    <path d="M 570 151 Q 620 166 670 151" fill="none" stroke="{colors['blue_soft']}" stroke-width="7" stroke-linecap="round"/>
-    <path d="M 579 168 L 557 176" fill="none" stroke="{colors['pot_edge']}" stroke-width="7" stroke-linecap="round"/>
-    <path d="M 661 168 L 683 176" fill="none" stroke="{colors['pot_edge']}" stroke-width="7" stroke-linecap="round"/>
-    <circle cx="609" cy="184" r="3" fill="{colors['blue']}"/>
-    <circle cx="631" cy="184" r="3" fill="{colors['blue']}"/>
-    <path d="M 613 195 Q 620 201 627 195" fill="none" stroke="{colors['blue_soft']}" stroke-width="2.4" stroke-linecap="round"/>
-    <circle class="pulse" cx="581" cy="133" r="2.8" fill="{colors['blue_soft']}"/>
-    <circle class="pulse" cx="661" cy="126" r="2.2" fill="{colors['blue']}"/>
+    <g class="speech" opacity="0">
+      <rect x="676" y="54" width="112" height="38" rx="17" fill="{colors['faint']}" stroke="{colors['blue_soft']}" stroke-width="1.5"/>
+      <path d="M 685 88 L 671 103 L 704 91" fill="{colors['faint']}" stroke="{colors['blue_soft']}" stroke-width="1.5" stroke-linejoin="round"/>
+      <text x="732" y="78" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" font-weight="700" letter-spacing="1.4" fill="{colors['blue']}">LET HIM COOK</text>
+    </g>
+    <path class="steam-a" d="M 592 132 C 571 107, 605 92, 590 65" fill="none" stroke="{colors['steam']}" stroke-width="4" stroke-linecap="round" opacity="0"/>
+    <path class="steam-b" d="M 651 130 C 670 105, 637 91, 655 62" fill="none" stroke="{colors['steam']}" stroke-width="4" stroke-linecap="round" opacity="0"/>
+    <ellipse class="flame" cx="620" cy="272" rx="48" ry="11" fill="{colors['heat']}" opacity=".82" filter="url(#soft-glow)"/>
+    <g class="pot-character">
+      <path class="stir" d="M 603 58 L 635 190" fill="none" stroke="{colors['pot_edge']}" stroke-width="8" stroke-linecap="round"/>
+      <path d="M 550 171 Q 620 143 690 171 L 673 246 Q 620 279 567 246 Z" fill="url(#pot-sheen)"/>
+      <path d="M 548 170 Q 620 194 692 170" fill="none" stroke="{colors['blue_soft']}" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 562 194 L 532 204" fill="none" stroke="{colors['pot_edge']}" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 678 194 L 708 204" fill="none" stroke="{colors['pot_edge']}" stroke-width="10" stroke-linecap="round"/>
+      <g class="eye"><circle cx="600" cy="215" r="5" fill="{colors['blue']}"/><circle cx="640" cy="215" r="5" fill="{colors['blue']}"/></g>
+      <path d="M 606 231 Q 620 244 634 231" fill="none" stroke="{colors['blue_soft']}" stroke-width="4" stroke-linecap="round"/>
+      <circle class="bubble-a" cx="592" cy="171" r="5" fill="{colors['grid'][3]}"/>
+      <circle class="bubble-b" cx="621" cy="174" r="7" fill="{colors['grid'][4]}"/>
+      <circle class="bubble-c" cx="652" cy="171" r="4" fill="{colors['grid'][2]}"/>
+    </g>
   </g>
 
   <g aria-label="Contribution signal">
-    <path d="M 704 155 C 728 155, 735 155, 756 155" fill="none" stroke="{colors['faint']}" stroke-width="1.5" stroke-dasharray="3 7"/>
+    <path d="M 714 186 C 735 186, 748 186, 770 186" fill="none" stroke="{colors['faint']}" stroke-width="2" stroke-dasharray="3 8"/>
     <path d="{signal}" fill="none" stroke="{colors['blue_soft']}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".28"/>
-    <path class="signal" d="{signal}" fill="none" stroke="url(#signal-gradient)" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="signal" d="{signal}" fill="none" stroke="url(#signal-gradient)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle r="7" fill="{colors['blue']}" opacity="0" filter="url(#soft-glow)">
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.43;.48;.82;.9" dur="9s" repeatCount="indefinite"/>
+      <animateMotion path="{signal}" dur="9s" repeatCount="indefinite" keyTimes="0;.43;.82;1" keyPoints="0;0;1;1"/>
+    </circle>
+    <g transform="translate({endpoint[0]:.1f} {endpoint[1]:.1f})">
+      <g class="burst" opacity="0" stroke="{colors['blue']}" stroke-width="3" stroke-linecap="round">
+        <path d="M 0 -9 L 0 -22"/><path d="M 0 9 L 0 22"/><path d="M -9 0 L -22 0"/><path d="M 9 0 L 22 0"/>
+        <path d="M -7 -7 L -16 -16"/><path d="M 7 7 L 16 16"/><path d="M 7 -7 L 16 -16"/><path d="M -7 7 L -16 16"/>
+      </g>
+    </g>
     <circle class="pulse" cx="{endpoint[0]:.1f}" cy="{endpoint[1]:.1f}" r="5" fill="{colors['blue']}"/>
   </g>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" letter-spacing="1.8">
-    <text x="42" y="264" fill="{colors['muted']}">RAW CONTRIBUTIONS</text>
-    <text x="620" y="264" text-anchor="middle" fill="{colors['blue']}">AGI 大锅烩</text>
-    <text x="1158" y="264" text-anchor="end" fill="{colors['blue']}">SIGNAL</text>
+    <text x="42" y="302" fill="{colors['muted']}">CONTRIBUTIONS / NOISE</text>
+    <text x="620" y="302" text-anchor="middle" fill="{colors['blue']}">AGI 大锅烩</text>
+    <text x="1158" y="302" text-anchor="end" fill="{colors['blue']}">SIGNAL / SHIP</text>
   </g>
-  <text x="1158" y="286" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="{colors['muted']}" opacity=".72">updated {today} · {total} contributions</text>
+  <text x="1158" y="322" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="{colors['muted']}" opacity=".72">updated {today} · {total} contributions</text>
 </svg>
 '''
 
