@@ -21,4 +21,16 @@
 
 ---
 
-<sub>Banner from <a href="assets/make_banner.py"><code>make_banner.py</code></a> — noise decaying into signal, no hand-drawing involved.</sub>
+<p align="center"><sub>今日份 contribution，现炒现吃 🍳</sub></p>
+
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/github-contribution-grid-snake-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/github-contribution-grid-snake.svg" />
+    <img alt="A snake eating Tianyi's GitHub contributions" src="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/github-contribution-grid-snake.svg" />
+  </picture>
+</p>
+
+<p align="center">
+  <sub>Banner generated from <a href="assets/make_banner.py"><code>make_banner.py</code></a>.</sub>
+</p>

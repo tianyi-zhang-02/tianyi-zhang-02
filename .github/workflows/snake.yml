@@ -1,0 +1,35 @@
+name: Cook contribution snake
+
+on:
+  schedule:
+    - cron: "17 3 * * *"
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - ".github/workflows/snake.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  cook:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Generate contribution snake
+        uses: Platane/snk/svg-only@v3
+        with:
+          github_user_name: ${{ github.repository_owner }}
+          outputs: |
+            dist/github-contribution-grid-snake.svg?color_snake=%23f59e0b&color_dots=%23f4f1ea,%23d6eadf,%239fd5bd,%235ab58c,%232f855a
+            dist/github-contribution-grid-snake-dark.svg?palette=github-dark&color_snake=%23fbbf24&color_dots=%23161b22,%23233d36,%232f6f55,%2348a978,%2378dba9
+
+      - name: Publish animation
+        uses: crazy-max/ghaction-github-pages@v4
+        with:
+          target_branch: output
+          build_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
