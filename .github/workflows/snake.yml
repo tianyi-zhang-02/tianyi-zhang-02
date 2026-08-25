@@ -1,4 +1,4 @@
-name: Cook contribution snake
+name: Generate contribution trail
 
 on:
   schedule:
@@ -23,8 +23,8 @@ jobs:
         with:
           github_user_name: ${{ github.repository_owner }}
           outputs: |
-            dist/github-contribution-grid-snake.svg?color_snake=%23f59e0b&color_dots=%23f4f1ea,%23d6eadf,%239fd5bd,%235ab58c,%232f855a
-            dist/github-contribution-grid-snake-dark.svg?palette=github-dark&color_snake=%23fbbf24&color_dots=%23161b22,%23233d36,%232f6f55,%2348a978,%2378dba9
+            dist/github-contribution-grid-snake.svg?color_snake=%231e3ec8&color_dots=transparent,%23dce3ff,%23b5c1f7,%237d91e8,%233f5fd6
+            dist/github-contribution-grid-snake-dark.svg?color_snake=%239daeff&color_dots=transparent,%232e344d,%234b5682,%236f82c2,%239daeff
 
       - name: Publish animation
         uses: crazy-max/ghaction-github-pages@v4
