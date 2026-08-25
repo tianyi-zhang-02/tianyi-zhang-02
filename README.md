@@ -21,8 +21,8 @@
 
 <p align="center">
   <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/github-contribution-grid-snake-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/github-contribution-grid-snake.svg" />
-    <img alt="Animated GitHub contribution trail" src="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/github-contribution-grid-snake.svg" width="100%" />
+    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/signal-kitchen-dark.svg" />
+    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/signal-kitchen.svg" />
+    <img alt="GitHub contributions entering the AGI kitchen and emerging as signal" src="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/signal-kitchen.svg" width="100%" />
   </picture>
 </p>
