@@ -19,8 +19,6 @@
   <a href="mailto:zhangtianyi975@gmail.com">Email</a>
 </p>
 
-<br>
-
 <p align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/github-contribution-grid-snake-dark.svg" />
