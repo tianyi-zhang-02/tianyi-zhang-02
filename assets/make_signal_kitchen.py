@@ -4,7 +4,6 @@
 from __future__ import annotations
 
 import argparse
-import datetime as dt
 import json
 import math
 import os
@@ -27,7 +26,6 @@ THEMES = {
         "pot": "#20283A",
         "pot_edge": "#40506D",
         "steam": "#AAB2C2",
-        "heat": "#FF8A5B",
     },
     "dark": {
         "muted": "#8B93A7",
@@ -39,7 +37,6 @@ THEMES = {
         "pot": "#D7DEEE",
         "pot_edge": "#A5B0C7",
         "steam": "#7E879B",
-        "heat": "#FFAA7E",
     },
 }
 
@@ -128,18 +125,18 @@ def esc(text: str) -> str:
 
 
 def calendar_dots(weeks: list[list[dict]], colors: list[str]) -> str:
-    start_x, start_y = 42, 94
-    step_x, step_y = 8.1, 20
+    start_x, start_y = 42, 88
+    step_x, step_y = 8.1, 19
     dots = []
     for week_index, week in enumerate(weeks):
         for day in week:
             x = start_x + week_index * step_x
             y = start_y + day["weekday"] * step_y
             level = day["level"]
-            radius = 2.1 if level == 0 else 2.5 + level * 0.25
+            size = 4.2 if level == 0 else 4.2 + level * 0.65
             opacity = 0.72 if level == 0 else 0.94
             dots.append(
-                f'<circle cx="{x:.1f}" cy="{y:.1f}" r="{radius:.1f}" '
+                f'<rect x="{x - size / 2:.1f}" y="{y - size / 2:.1f}" width="{size:.1f}" height="{size:.1f}" rx="0.8" '
                 f'fill="{colors[level]}" opacity="{opacity:.2f}"/>'
             )
     return "\n    ".join(dots)
@@ -163,65 +160,25 @@ def signal_path(weeks: list[list[dict]]) -> tuple[str, tuple[float, float]]:
     if not totals:
         totals = [0]
     peak = max(max(totals), 1)
-    sampled = totals[-28:]
-    points = []
+    sampled = totals[-25:]
+    points = [(770, 205), (792, 205)]
     for index, count in enumerate(sampled):
-        x = 770 + index * (386 / max(len(sampled) - 1, 1))
+        x = 808 + index * (348 / max(len(sampled) - 1, 1))
         normalized = math.sqrt(count / peak)
         y = 205 - normalized * 102
         points.append((x, y))
     return smooth_path(points), points[-1]
 
 
-def moving_ingredients(colors: dict) -> str:
-    tokens = [
-        ("DATA", "M 395 100 C 480 86, 520 125, 574 164", 0.0, colors["grid"][4]),
-        ("CODE", "M 365 145 C 462 130, 530 148, 578 174", 1.7, colors["grid"][3]),
-        ("EVAL", "M 405 202 C 485 205, 530 194, 582 183", 3.4, colors["grid"][4]),
-        ("IDEA", "M 350 244 C 470 257, 535 224, 586 192", 5.1, colors["grid"][2]),
-    ]
-    out = []
-    for label, path, delay, color in tokens:
-        out.append(
-            f'''<g opacity="0">
-      <rect x="-22" y="-10" width="44" height="20" rx="10" fill="{colors['faint']}" stroke="{color}" stroke-width="1.4"/>
-      <text x="0" y="3.5" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="8" font-weight="700" letter-spacing="1" fill="{colors['ink']}">{label}</text>
-      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.82;1" dur="8s" begin="{delay}s" repeatCount="indefinite"/>
-      <animateMotion path="{path}" dur="8s" begin="{delay}s" repeatCount="indefinite" keyTimes="0;.78;1" keyPoints="0;1;1" calcMode="spline" keySplines=".3 .7 .3 1;0 0 1 1"/>
-    </g>'''
-        )
-
-    particle_paths = [
-        ("M 420 86 C 492 88, 538 135, 584 171", 0.6, colors["grid"][4], 5.0),
-        ("M 390 122 C 480 118, 536 150, 586 177", 2.1, colors["grid"][2], 4.4),
-        ("M 420 176 C 495 177, 548 179, 590 183", 3.7, colors["grid"][3], 5.8),
-        ("M 382 228 C 480 241, 548 207, 590 190", 5.3, colors["grid"][4], 4.8),
-    ]
-    for path, delay, color, radius in particle_paths:
-        out.append(
-            f'''<circle r="{radius}" fill="{color}" opacity="0" filter="url(#soft-glow)">
-      <animate attributeName="opacity" values="0;1;1;0" keyTimes="0;.12;.84;1" dur="6.4s" begin="{delay}s" repeatCount="indefinite"/>
-      <animateMotion path="{path}" dur="6.4s" begin="{delay}s" repeatCount="indefinite"/>
-    </circle>'''
-        )
-    return "\n    ".join(out)
-
-
 def build(theme: str, username: str, weeks: list[list[dict]], total: int) -> str:
     colors = THEMES[theme]
     dots = calendar_dots(weeks, colors["grid"])
     signal, endpoint = signal_path(weeks)
-    ingredients = moving_ingredients(colors)
-    today = dt.date.today().isoformat()
 
     return f'''<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 {WIDTH} {HEIGHT}" width="{WIDTH}" height="{HEIGHT}" role="img" aria-labelledby="title desc">
-  <title id="title">AGI signal kitchen powered by {esc(username)}'s GitHub contributions</title>
-  <desc id="desc">Contribution points travel into a small cooking pot and emerge as a clean signal.</desc>
+  <title id="title">{esc(username)}'s pixel signal kitchen</title>
+  <desc id="desc">A pixel chef collects one of {total} GitHub contributions, cooks it, and turns it into a signal.</desc>
   <defs>
-    <linearGradient id="pot-sheen" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="{colors['pot_edge']}"/>
-      <stop offset="1" stop-color="{colors['pot']}"/>
-    </linearGradient>
     <linearGradient id="signal-gradient" x1="0" y1="0" x2="1" y2="0">
       <stop offset="0" stop-color="{colors['blue_soft']}"/>
       <stop offset="1" stop-color="{colors['blue']}"/>
@@ -231,70 +188,89 @@ def build(theme: str, username: str, weeks: list[list[dict]], total: int) -> str
       <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
     <style>
-      .ingredients-grid {{ animation: breathe 3.2s ease-in-out infinite; }}
-      .signal {{ stroke-dasharray: 760; stroke-dashoffset: 760; animation: draw 9s ease-in-out infinite; }}
-      .pot-character {{ transform-box: fill-box; transform-origin: center bottom; animation: cook 9s ease-in-out infinite; }}
-      .stir {{ transform-box: fill-box; transform-origin: 52% 88%; animation: stir .72s ease-in-out infinite alternate; }}
-      .steam-a {{ animation: steam 2.5s ease-in-out infinite; }}
-      .steam-b {{ animation: steam 2.5s 1.15s ease-in-out infinite; }}
-      .flame {{ transform-box: fill-box; transform-origin: center bottom; animation: flame .48s ease-in-out infinite alternate; }}
-      .eye {{ transform-box: fill-box; transform-origin: center; animation: blink 4.2s ease-in-out infinite; }}
-      .bubble-a {{ animation: bubble 2.1s ease-in infinite; }}
-      .bubble-b {{ animation: bubble 2.1s .7s ease-in infinite; }}
-      .bubble-c {{ animation: bubble 2.1s 1.35s ease-in infinite; }}
-      .speech {{ transform-box: fill-box; transform-origin: left bottom; animation: speech 9s ease-in-out infinite; }}
-      .burst {{ transform-box: fill-box; transform-origin: center; animation: burst 9s ease-out infinite; }}
-      .pulse {{ animation: pulse 2.1s ease-in-out infinite; }}
-      @keyframes breathe {{ 0%, 100% {{ opacity: .58; }} 50% {{ opacity: 1; }} }}
-      @keyframes draw {{ 0%, 43% {{ stroke-dashoffset: 760; opacity: .15; }} 77%, 94% {{ stroke-dashoffset: 0; opacity: 1; }} 100% {{ stroke-dashoffset: 0; opacity: .15; }} }}
-      @keyframes cook {{ 0%, 31%, 58%, 100% {{ transform: translateY(0) rotate(0); }} 36% {{ transform: translateY(-8px) rotate(-3deg); }} 40% {{ transform: translateY(1px) rotate(4deg); }} 44% {{ transform: translateY(-6px) rotate(-4deg); }} 48% {{ transform: translateY(0) rotate(3deg); }} 53% {{ transform: translateY(-3px) rotate(-1deg); }} }}
-      @keyframes stir {{ from {{ transform: rotate(-13deg); }} to {{ transform: rotate(14deg); }} }}
-      @keyframes steam {{ 0% {{ transform: translateY(10px) scale(.75); opacity: 0; }} 35% {{ opacity: .8; }} 100% {{ transform: translateY(-30px) scale(1.12); opacity: 0; }} }}
-      @keyframes flame {{ from {{ transform: scale(.78, .78); opacity: .55; }} to {{ transform: scale(1.14, 1.18); opacity: 1; }} }}
-      @keyframes blink {{ 0%, 43%, 47%, 100% {{ transform: scaleY(1); }} 45% {{ transform: scaleY(.08); }} }}
-      @keyframes bubble {{ 0% {{ transform: translateY(12px) scale(.35); opacity: 0; }} 30% {{ opacity: 1; }} 100% {{ transform: translateY(-42px) scale(1.18); opacity: 0; }} }}
-      @keyframes speech {{ 0%, 30%, 64%, 100% {{ transform: scale(.7) translateY(8px); opacity: 0; }} 37%, 57% {{ transform: scale(1) translateY(0); opacity: 1; }} }}
-      @keyframes burst {{ 0%, 76%, 88%, 100% {{ transform: scale(.25); opacity: 0; }} 81% {{ transform: scale(1.35); opacity: 1; }} }}
-      @keyframes pulse {{ 0%, 100% {{ opacity: .34; }} 50% {{ opacity: 1; }} }}
+      .grid {{ animation: grid-glow 3.6s ease-in-out infinite; }}
+      .scanner {{ animation: scan 10s ease-in-out infinite; }}
+      .chosen {{ transform-box: fill-box; transform-origin: center; animation: chosen 10s ease-in-out infinite; }}
+      .chef {{ animation: chef-route 10s cubic-bezier(.45,.05,.3,1) infinite; }}
+      .chef-bob {{ animation: chef-bob .48s steps(2, end) infinite; }}
+      .leg-left {{ transform-box: fill-box; transform-origin: top center; animation: leg-left .48s steps(2, end) infinite; }}
+      .leg-right {{ transform-box: fill-box; transform-origin: top center; animation: leg-right .48s steps(2, end) infinite; }}
+      .carry {{ animation: carry 10s steps(1, end) infinite; }}
+      .pot {{ transform-box: fill-box; transform-origin: center bottom; animation: pot-react 10s steps(1, end) infinite; }}
+      .liquid {{ animation: liquid 10s steps(2, end) infinite; }}
+      .smoke-a {{ animation: smoke 2s steps(4, end) infinite; }}
+      .smoke-b {{ animation: smoke 2s .8s steps(4, end) infinite; }}
+      .signal {{ stroke-dasharray: 760; stroke-dashoffset: 760; animation: draw 10s ease-in-out infinite; }}
+      .burst {{ transform-box: fill-box; transform-origin: center; animation: burst 10s steps(2, end) infinite; }}
+      .status {{ animation: status 10s steps(1, end) infinite; }}
+      @keyframes grid-glow {{ 0%, 100% {{ opacity: .62; }} 50% {{ opacity: .96; }} }}
+      @keyframes scan {{ 0%, 4% {{ transform: translateX(0); opacity: 0; }} 7% {{ opacity: .8; }} 27% {{ transform: translateX(390px); opacity: .8; }} 30%, 100% {{ transform: translateX(390px); opacity: 0; }} }}
+      @keyframes chosen {{ 0%, 20%, 100% {{ transform: scale(1); opacity: .3; }} 25%, 34% {{ transform: scale(1.65); opacity: 1; }} 38% {{ transform: scale(.2); opacity: 0; }} }}
+      @keyframes chef-route {{ 0%, 7% {{ transform: translateX(0); opacity: 0; }} 10% {{ opacity: 1; }} 32%, 72% {{ transform: translateX(105px); opacity: 1; }} 83% {{ transform: translateX(0); opacity: 1; }} 87%, 100% {{ transform: translateX(0); opacity: 0; }} }}
+      @keyframes chef-bob {{ 0% {{ transform: translateY(0); }} 100% {{ transform: translateY(-4px); }} }}
+      @keyframes leg-left {{ 0% {{ transform: rotate(16deg); }} 100% {{ transform: rotate(-16deg); }} }}
+      @keyframes leg-right {{ 0% {{ transform: rotate(-16deg); }} 100% {{ transform: rotate(16deg); }} }}
+      @keyframes carry {{ 0%, 34% {{ opacity: 1; }} 35%, 100% {{ opacity: 0; }} }}
+      @keyframes pot-react {{ 0%, 41%, 61%, 100% {{ transform: translateY(0); }} 44%, 50%, 56% {{ transform: translateY(-5px); }} 47%, 53%, 59% {{ transform: translateY(2px); }} }}
+      @keyframes liquid {{ 0%, 40%, 62%, 100% {{ opacity: .45; }} 45%, 59% {{ opacity: 1; }} }}
+      @keyframes smoke {{ 0% {{ transform: translateY(12px); opacity: 0; }} 25% {{ opacity: .72; }} 100% {{ transform: translateY(-34px); opacity: 0; }} }}
+      @keyframes draw {{ 0%, 52% {{ stroke-dashoffset: 760; opacity: .12; }} 84%, 94% {{ stroke-dashoffset: 0; opacity: 1; }} 100% {{ stroke-dashoffset: 0; opacity: .12; }} }}
+      @keyframes burst {{ 0%, 83%, 91%, 100% {{ transform: scale(.2); opacity: 0; }} 87% {{ transform: scale(1.4); opacity: 1; }} }}
+      @keyframes status {{ 0%, 39% {{ opacity: .25; }} 43%, 64% {{ opacity: 1; }} 68%, 100% {{ opacity: .25; }} }}
       @media (prefers-reduced-motion: reduce) {{ * {{ animation: none !important; }} .signal {{ stroke-dashoffset: 0; }} }}
     </style>
   </defs>
 
-  <g aria-label="Contribution ingredients">
-    <g class="ingredients-grid">{dots}</g>
-    {ingredients}
+  <g aria-label="Contribution field">
+    <g class="grid">{dots}</g>
+    <rect class="scanner" x="36" y="72" width="10" height="140" rx="2" fill="{colors['blue_soft']}" opacity="0"/>
+    <rect class="chosen" x="439" y="128" width="9" height="9" rx="1" fill="{colors['blue']}" opacity=".3" filter="url(#soft-glow)"/>
   </g>
 
-  <g aria-label="AGI cooking pot">
-    <g class="speech" opacity="0">
-      <rect x="676" y="54" width="112" height="38" rx="17" fill="{colors['faint']}" stroke="{colors['blue_soft']}" stroke-width="1.5"/>
-      <path d="M 685 88 L 671 103 L 704 91" fill="{colors['faint']}" stroke="{colors['blue_soft']}" stroke-width="1.5" stroke-linejoin="round"/>
-      <text x="732" y="78" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="10" font-weight="700" letter-spacing="1.4" fill="{colors['blue']}">LET HIM COOK</text>
+  <g class="chef" aria-label="Pixel chef robot" opacity="0">
+    <g class="chef-bob">
+      <rect x="390" y="77" width="54" height="10" rx="2" fill="{colors['faint']}" stroke="{colors['blue_soft']}" stroke-width="2"/>
+      <rect x="399" y="67" width="36" height="12" rx="2" fill="{colors['faint']}" stroke="{colors['blue_soft']}" stroke-width="2"/>
+      <rect x="404" y="91" width="28" height="8" fill="{colors['pot_edge']}"/>
+      <rect x="394" y="98" width="48" height="42" rx="5" fill="{colors['pot']}" stroke="{colors['pot_edge']}" stroke-width="3"/>
+      <rect x="404" y="112" width="6" height="6" fill="{colors['blue']}"/><rect x="426" y="112" width="6" height="6" fill="{colors['blue']}"/>
+      <rect x="411" y="128" width="14" height="4" fill="{colors['blue_soft']}"/>
+      <rect x="398" y="144" width="40" height="47" rx="3" fill="{colors['pot_edge']}"/>
+      <rect x="407" y="151" width="22" height="32" fill="{colors['faint']}"/>
+      <rect x="414" y="159" width="8" height="8" fill="{colors['blue']}"/>
+      <rect x="383" y="150" width="15" height="9" fill="{colors['pot_edge']}"/><rect x="438" y="150" width="22" height="9" fill="{colors['pot_edge']}"/>
+      <rect class="carry" x="458" y="140" width="15" height="15" rx="2" fill="{colors['blue']}" filter="url(#soft-glow)"/>
+      <rect class="leg-left" x="401" y="190" width="12" height="25" fill="{colors['pot']}"/>
+      <rect class="leg-right" x="423" y="190" width="12" height="25" fill="{colors['pot']}"/>
     </g>
-    <path class="steam-a" d="M 592 132 C 571 107, 605 92, 590 65" fill="none" stroke="{colors['steam']}" stroke-width="4" stroke-linecap="round" opacity="0"/>
-    <path class="steam-b" d="M 651 130 C 670 105, 637 91, 655 62" fill="none" stroke="{colors['steam']}" stroke-width="4" stroke-linecap="round" opacity="0"/>
-    <ellipse class="flame" cx="620" cy="272" rx="48" ry="11" fill="{colors['heat']}" opacity=".82" filter="url(#soft-glow)"/>
-    <g class="pot-character">
-      <path class="stir" d="M 603 58 L 635 190" fill="none" stroke="{colors['pot_edge']}" stroke-width="8" stroke-linecap="round"/>
-      <path d="M 550 171 Q 620 143 690 171 L 673 246 Q 620 279 567 246 Z" fill="url(#pot-sheen)"/>
-      <path d="M 548 170 Q 620 194 692 170" fill="none" stroke="{colors['blue_soft']}" stroke-width="10" stroke-linecap="round"/>
-      <path d="M 562 194 L 532 204" fill="none" stroke="{colors['pot_edge']}" stroke-width="10" stroke-linecap="round"/>
-      <path d="M 678 194 L 708 204" fill="none" stroke="{colors['pot_edge']}" stroke-width="10" stroke-linecap="round"/>
-      <g class="eye"><circle cx="600" cy="215" r="5" fill="{colors['blue']}"/><circle cx="640" cy="215" r="5" fill="{colors['blue']}"/></g>
-      <path d="M 606 231 Q 620 244 634 231" fill="none" stroke="{colors['blue_soft']}" stroke-width="4" stroke-linecap="round"/>
-      <circle class="bubble-a" cx="592" cy="171" r="5" fill="{colors['grid'][3]}"/>
-      <circle class="bubble-b" cx="621" cy="174" r="7" fill="{colors['grid'][4]}"/>
-      <circle class="bubble-c" cx="652" cy="171" r="4" fill="{colors['grid'][2]}"/>
+  </g>
+
+  <g aria-label="Flying contribution" opacity="0">
+    <rect x="-8" y="-8" width="16" height="16" rx="2" fill="{colors['blue']}" filter="url(#soft-glow)"/>
+    <animate attributeName="opacity" values="0;0;1;1;0;0" keyTimes="0;.34;.36;.49;.52;1" dur="10s" repeatCount="indefinite"/>
+    <animateMotion path="M 578 145 Q 620 74 640 174" dur="10s" repeatCount="indefinite" keyTimes="0;.34;.51;1" keyPoints="0;0;1;1"/>
+  </g>
+
+  <g aria-label="Pixel cooker">
+    <g class="smoke-a" opacity="0" fill="{colors['steam']}"><rect x="612" y="121" width="9" height="9"/><rect x="621" y="106" width="9" height="9"/><rect x="612" y="91" width="9" height="9"/></g>
+    <g class="smoke-b" opacity="0" fill="{colors['steam']}"><rect x="660" y="127" width="8" height="8"/><rect x="652" y="112" width="8" height="8"/><rect x="660" y="97" width="8" height="8"/></g>
+    <g class="pot">
+      <rect x="579" y="170" width="122" height="13" fill="{colors['pot_edge']}"/>
+      <rect x="566" y="176" width="18" height="12" fill="{colors['pot_edge']}"/><rect x="696" y="176" width="18" height="12" fill="{colors['pot_edge']}"/>
+      <path d="M 586 183 H 694 L 681 244 H 599 Z" fill="{colors['pot']}" stroke="{colors['pot_edge']}" stroke-width="4" stroke-linejoin="round"/>
+      <g class="liquid" fill="{colors['blue_soft']}"><rect x="588" y="173" width="20" height="7"/><rect x="612" y="173" width="20" height="7"/><rect x="636" y="173" width="20" height="7"/><rect x="660" y="173" width="20" height="7"/></g>
+      <rect class="status" x="628" y="211" width="24" height="8" rx="1" fill="{colors['blue']}" opacity=".25"/>
+      <rect x="605" y="245" width="22" height="7" fill="{colors['pot_edge']}"/><rect x="653" y="245" width="22" height="7" fill="{colors['pot_edge']}"/>
     </g>
   </g>
 
   <g aria-label="Contribution signal">
-    <path d="M 714 186 C 735 186, 748 186, 770 186" fill="none" stroke="{colors['faint']}" stroke-width="2" stroke-dasharray="3 8"/>
+    <path d="M 714 206 H 770" fill="none" stroke="{colors['faint']}" stroke-width="2" stroke-dasharray="4 7"/>
     <path d="{signal}" fill="none" stroke="{colors['blue_soft']}" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" opacity=".28"/>
-    <path class="signal" d="{signal}" fill="none" stroke="url(#signal-gradient)" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+    <path class="signal" d="{signal}" fill="none" stroke="url(#signal-gradient)" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
     <circle r="7" fill="{colors['blue']}" opacity="0" filter="url(#soft-glow)">
-      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.43;.48;.82;.9" dur="9s" repeatCount="indefinite"/>
-      <animateMotion path="{signal}" dur="9s" repeatCount="indefinite" keyTimes="0;.43;.82;1" keyPoints="0;0;1;1"/>
+      <animate attributeName="opacity" values="0;0;1;1;0" keyTimes="0;.53;.58;.86;.92" dur="10s" repeatCount="indefinite"/>
+      <animateMotion path="{signal}" dur="10s" repeatCount="indefinite" keyTimes="0;.53;.86;1" keyPoints="0;0;1;1"/>
     </circle>
     <g transform="translate({endpoint[0]:.1f} {endpoint[1]:.1f})">
       <g class="burst" opacity="0" stroke="{colors['blue']}" stroke-width="3" stroke-linecap="round">
@@ -302,15 +278,15 @@ def build(theme: str, username: str, weeks: list[list[dict]], total: int) -> str
         <path d="M -7 -7 L -16 -16"/><path d="M 7 7 L 16 16"/><path d="M 7 -7 L 16 -16"/><path d="M -7 7 L -16 16"/>
       </g>
     </g>
-    <circle class="pulse" cx="{endpoint[0]:.1f}" cy="{endpoint[1]:.1f}" r="5" fill="{colors['blue']}"/>
+    <rect x="{endpoint[0] - 4:.1f}" y="{endpoint[1] - 4:.1f}" width="8" height="8" rx="1" fill="{colors['blue']}"/>
   </g>
 
   <g font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="11" letter-spacing="1.8">
-    <text x="42" y="302" fill="{colors['muted']}">CONTRIBUTIONS / NOISE</text>
-    <text x="620" y="302" text-anchor="middle" fill="{colors['blue']}">AGI 大锅烩</text>
-    <text x="1158" y="302" text-anchor="end" fill="{colors['blue']}">SIGNAL / SHIP</text>
+    <text x="42" y="296" fill="{colors['muted']}">01 / COLLECT</text>
+    <text x="640" y="296" text-anchor="middle" fill="{colors['blue']}">02 / COOK</text>
+    <text x="1158" y="296" text-anchor="end" fill="{colors['blue']}">03 / SHIP</text>
   </g>
-  <text x="1158" y="322" text-anchor="end" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" fill="{colors['muted']}" opacity=".72">updated {today} · {total} contributions</text>
+  <text x="640" y="318" text-anchor="middle" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="9" letter-spacing="2" fill="{colors['muted']}" opacity=".8">AGI 大锅烩</text>
 </svg>
 '''
 
