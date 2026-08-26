@@ -302,7 +302,7 @@ def build(theme: str, username: str, weeks: list[list[dict]], total: int) -> str
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--username", default="tianyi-zhang-02")
-    parser.add_argument("--out-dir", type=pathlib.Path, default=pathlib.Path("dist-spider"))
+    parser.add_argument("--out-dir", type=pathlib.Path, default=pathlib.Path("dist"))
     parser.add_argument("--demo", action="store_true")
     args = parser.parse_args()
 
