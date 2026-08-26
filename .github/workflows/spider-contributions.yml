@@ -1,4 +1,4 @@
-name: Cook contribution signal
+name: Generate Spider-Man contribution swing
 
 on:
   schedule:
@@ -8,23 +8,23 @@ on:
     branches:
       - main
     paths:
-      - ".github/workflows/signal-kitchen.yml"
-      - "assets/make_signal_kitchen.py"
+      - ".github/workflows/spider-contributions.yml"
+      - "assets/make_spider_profile.py"
 
 permissions:
   contents: write
 
 jobs:
-  cook:
+  swing:
     runs-on: ubuntu-latest
     timeout-minutes: 5
     steps:
       - uses: actions/checkout@v4
 
-      - name: Turn contributions into signal
+      - name: Generate contribution swing
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: python assets/make_signal_kitchen.py --username "${{ github.repository_owner }}"
+        run: python assets/make_spider_profile.py --username "${{ github.repository_owner }}"
 
       - name: Publish animation
         uses: crazy-max/ghaction-github-pages@v4
