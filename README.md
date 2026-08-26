@@ -1,8 +1,5 @@
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
-    <img alt="A trace that begins as noise on the left and resolves into a clean signal on the right" src="assets/banner-light.svg" width="100%">
-  </picture>
+  <img alt="An original cyber-acrobat overlooking a multiversal final confrontation" src="assets/multiverse-finale.png" width="100%">
 </p>
 
 <h1 align="center">Tianyi Zhang</h1>
