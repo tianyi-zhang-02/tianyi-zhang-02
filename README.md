@@ -1,5 +1,8 @@
 <p align="center">
-  <img alt="An original cyber-acrobat overlooking a multiversal final confrontation" src="assets/multiverse-finale.png" width="100%">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="assets/banner-dark.svg">
+    <img alt="A trace that begins as noise on the left and resolves into a clean signal on the right" src="assets/banner-light.svg" width="100%">
+  </picture>
 </p>
 
 <h1 align="center">Tianyi Zhang</h1>
@@ -17,9 +20,5 @@
 </p>
 
 <p align="center">
-  <picture>
-    <source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/spider-contributions-dark.svg" />
-    <source media="(prefers-color-scheme: light)" srcset="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/spider-contributions.svg" />
-    <img alt="Pixel-art Spider-Man swinging through the GitHub contribution graph" src="https://raw.githubusercontent.com/tianyi-zhang-02/tianyi-zhang-02/output/spider-contributions.svg" width="100%" />
-  </picture>
+  <img alt="An original cyber-acrobat overlooking a multiversal final confrontation" src="assets/multiverse-finale.png" width="100%">
 </p>
