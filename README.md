@@ -20,5 +20,9 @@
 </p>
 
 <p align="center">
+  <sub>Building <a href="https://github.com/tianyi-zhang-02/wayfind"><b>wayfind</b></a>: a plan your AI agents can read, and a memory they keep up to date.</sub>
+</p>
+
+<p align="center">
   <img alt="An original cyber-acrobat overlooking a multiversal final confrontation" src="assets/multiverse-finale.png" width="100%">
 </p>
