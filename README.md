@@ -1,9 +1,10 @@
-<picture>
-  <source media="(max-width: 600px) and (prefers-reduced-motion: reduce)" srcset="assets/night-banner-mobile-static.svg">
-  <source media="(prefers-reduced-motion: reduce)" srcset="assets/night-banner-static.svg">
-  <source media="(max-width: 600px)" srcset="assets/night-banner-mobile.svg">
-  <img alt="Tianyi Zhang · Georgia Tech CS master's, May 2027 · Shanghai, Atlanta, Bay Area · representation learning, LLM post-training, model and agent evaluation" src="assets/night-banner.svg" width="100%">
-</picture>
+# Tianyi Zhang · 张天毅
+
+I’m a master’s student in computer science at <img src="assets/institutions/gatech.ico" width="16" height="16" alt=""> **Georgia Tech**, graduating in May 2027. I previously studied Data Science at <img src="assets/institutions/emory.svg" width="16" height="16" alt=""> **Emory University**.
+
+Most recently, I was a **Machine Learning Engineer Intern** at <img src="assets/institutions/linkedin.ico" width="16" height="16" alt=""> **LinkedIn**, working on LLM-based retrieval and evaluation. Before that, I worked on agent evaluation at <img src="assets/institutions/gatech.ico" width="16" height="16" alt=""> **GT EIC Lab** × <img src="assets/institutions/nvidia.ico" width="16" height="16" alt=""> **NVIDIA AI Research** and graph learning for brain networks at <img src="assets/institutions/emory.svg" width="16" height="16" alt=""> **Emory**.
+
+My interests are **representation learning, LLM post-training, and model and agent evaluation**, especially how models learn from sparse or noisy feedback. I also contribute to <img src="assets/institutions/nvidia.ico" width="16" height="16" alt=""> **[NVIDIA NeMo RL](https://github.com/NVIDIA-NeMo/RL)**.
 
 <p>
   <a href="https://tianyi-zhang-02.github.io/">Website ↗</a> &nbsp;·&nbsp;
@@ -11,13 +12,9 @@
   <a href="https://www.linkedin.com/in/tianyi-zhang2002/">LinkedIn ↗</a>
 </p>
 
-### research/
+### Notes
 
-I'm a Computer Science master's student at **Georgia Tech**, graduating in May 2027.
-
-My interests are **representation learning, LLM post-training, and model / agent evaluation**. I'm especially interested in learning from sparse, noisy feedback—and figuring out whether a model really improves.
-
-### building/
+I maintain **AGI Study Notes** with friends: notes on ML and language models in English and Chinese, with diagrams and coding exercises.
 
 <a href="https://github.com/tianyi-zhang-02/cooking-agi">
 <picture>
@@ -30,6 +27,13 @@ My interests are **representation learning, LLM post-training, and model / agent
 
 [English](https://tianyi-zhang-02.github.io/cooking-agi/index.en.html) · [中文](https://tianyi-zhang-02.github.io/cooking-agi/)
 
-### off-the-clock/
+### Outside work
 
-Road trips, national parks, and [music for the way ↗](https://open.spotify.com/playlist/5mvXtbOcZx8t4gBWIZTFZn).
+I like photography, road trips, national parks, and [music](https://open.spotify.com/playlist/5mvXtbOcZx8t4gBWIZTFZn).
+
+<picture>
+  <source media="(max-width: 600px) and (prefers-reduced-motion: reduce)" srcset="assets/night-banner-mobile-static.svg">
+  <source media="(prefers-reduced-motion: reduce)" srcset="assets/night-banner-static.svg">
+  <source media="(max-width: 600px)" srcset="assets/night-banner-mobile.svg">
+  <img alt="A black hole above an icy planet, with Tianyi Zhang’s name and background" src="assets/night-banner.svg" width="100%">
+</picture>
