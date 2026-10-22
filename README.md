@@ -14,26 +14,10 @@ My interests are **representation learning, LLM post-training, and model and age
 
 ### Notes
 
-I maintain **AGI Study Notes** with friends: notes on ML and language models in English and Chinese, with diagrams and coding exercises.
-
-<a href="https://github.com/tianyi-zhang-02/cooking-agi">
-<picture>
-  <source media="(max-width: 600px) and (prefers-reduced-motion: reduce)" srcset="assets/card-notes-mobile-static.svg">
-  <source media="(prefers-reduced-motion: reduce)" srcset="assets/card-notes-static.svg">
-  <source media="(max-width: 600px)" srcset="assets/card-notes-mobile.svg">
-  <img alt="AGI Study Notes · AGI 大锅烩: bilingual notes on ML and language models, with interactive diagrams" src="assets/card-notes.svg" width="100%">
-</picture>
-</a>
+I maintain **[AGI Study Notes](https://github.com/tianyi-zhang-02/cooking-agi)** with friends: notes on ML and language models in English and Chinese, with diagrams and coding exercises.
 
 [English](https://tianyi-zhang-02.github.io/cooking-agi/index.en.html) · [中文](https://tianyi-zhang-02.github.io/cooking-agi/)
 
 ### Outside work
 
 I like photography, road trips, national parks, and [music](https://open.spotify.com/playlist/5mvXtbOcZx8t4gBWIZTFZn).
-
-<picture>
-  <source media="(max-width: 600px) and (prefers-reduced-motion: reduce)" srcset="assets/night-banner-mobile-static.svg">
-  <source media="(prefers-reduced-motion: reduce)" srcset="assets/night-banner-static.svg">
-  <source media="(max-width: 600px)" srcset="assets/night-banner-mobile.svg">
-  <img alt="A black hole above an icy planet, with Tianyi Zhang’s name and background" src="assets/night-banner.svg" width="100%">
-</picture>
