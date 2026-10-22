@@ -4,7 +4,7 @@ I’m a master’s student in computer science at <img src="assets/institutions/
 
 Most recently, I was a **Machine Learning Engineer Intern** at <img src="assets/institutions/linkedin.ico" width="16" height="16" alt=""> **LinkedIn**, working on LLM-based retrieval and evaluation. Before that, I worked on agent evaluation at <img src="assets/institutions/gatech.ico" width="16" height="16" alt=""> **GT EIC Lab** × <img src="assets/institutions/nvidia.ico" width="16" height="16" alt=""> **NVIDIA AI Research** and graph learning for brain networks at <img src="assets/institutions/emory.svg" width="16" height="16" alt=""> **Emory**.
 
-My interests are **representation learning, LLM post-training, and model and agent evaluation**, especially how models learn from sparse or noisy feedback. I also contribute to <img src="assets/institutions/nvidia.ico" width="16" height="16" alt=""> **[NVIDIA NeMo RL](https://github.com/NVIDIA-NeMo/RL)**.
+My interests are **representation learning, LLM post-training, and model and agent evaluation**, especially how models learn from sparse or noisy feedback. 
 
 <p>
   <a href="https://tianyi-zhang-02.github.io/">Website ↗</a> &nbsp;·&nbsp;
