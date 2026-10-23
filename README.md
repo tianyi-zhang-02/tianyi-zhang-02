@@ -14,7 +14,7 @@ My interests are **representation learning, LLM post-training, and model and age
 
 ### Notes
 
-I maintain **[SI Study Notes](https://github.com/tianyi-zhang-02/cooking-agi)** with friends: notes on ML and language models in English and Chinese, with diagrams and coding exercises.
+I maintain **[Cooking AGI](https://github.com/tianyi-zhang-02/cooking-agi)** with friends: notes on ML and language models in English and Chinese, with diagrams and coding exercises.
 
 [English](https://tianyi-zhang-02.github.io/cooking-agi/index.en.html) · [中文](https://tianyi-zhang-02.github.io/cooking-agi/)
 

@@ -150,7 +150,7 @@ def card(w, h, static=False):
         o += [f'<circle class="breath" cx="{hx:.1f}" cy="{hy:.1f}" r="{70 if wide else 64}" fill="url(#hole)" style="mix-blend-mode:screen"/>']
         o += twinkles(rng, 10, (20, 20, w - 20, h * .7), avoid=[(0, 20, 560 if wide else 380, h * .75), (hx - 120, hy - 50, hx + 120, hy + 50)])
     o += [f'<text x="32" y="{40 if wide else 46}" font-family="{MONO}" font-size="11" letter-spacing="2.2" fill="{MUTED}">OPEN NOTES · 中文 / ENGLISH</text>',
-          f'<text x="30" y="{92 if wide else 104}" font-family="{SERIF}" font-size="{46}" letter-spacing="-1.2" fill="{INK}">SI Study <tspan font-style="italic" fill="{WARM}">Notes</tspan></text>']
+          f'<text x="30" y="{92 if wide else 104}" font-family="{SERIF}" font-size="{46}" letter-spacing="-1.2" fill="{INK}">Cooking <tspan font-style="italic" fill="{WARM}">AGI</tspan></text>']
     lines = (["Modern AI in my own words: notes, interactive figures, and a history of the technology."] if wide
              else ["Modern AI in my own words: notes,", "interactive figures, and a history", "of the technology."])
     for i, line in enumerate(lines):
@@ -159,7 +159,7 @@ def card(w, h, static=False):
     o.append(f'<rect x="{bx}" y="{by}" width="170" height="36" rx="18" fill="#000" fill-opacity=".35" stroke="#5a5650"/>'
              f'<text x="{bx + 20}" y="{by + 23}" font-family="{SANS}" font-size="14" font-weight="600" fill="{INK}">Open the notes</text>'
              f'<text x="{bx + 150}" y="{by + 23}" font-family="{SANS}" font-size="15" fill="{INK}" text-anchor="end">→</text>')
-    return svg(w, h, o, static, title="SI Study Notes · cooking-agi",
+    return svg(w, h, o, static, title="Cooking AGI · cooking-agi",
                desc="Modern AI in my own words: bilingual notes, interactive figures, and a history of the technology.", ids=("ct", "cd"),
                defs=common_defs(hx, hy, 70, pcx, pcy, pr))
 
